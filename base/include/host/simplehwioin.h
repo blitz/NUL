@@ -26,6 +26,15 @@ unsigned char inb(unsigned short port)
   return msg.value;
 }
 
+unsigned inl(unsigned short port)
+{
+  MessageHwIOIn msg(MessageIOIn::TYPE_INL, port);
+  if (!_bus_hwioin.send(msg, true))
+    Logging::panic("%s could not read from ioport %x\n", __PRETTY_FUNCTION__, port);
+  return msg.value;
+}
+
+
 void insw(void *ptr, unsigned count, unsigned short port)
 {
   MessageHwIOIn msg(MessageIOIn::TYPE_INW, port, count, ptr);

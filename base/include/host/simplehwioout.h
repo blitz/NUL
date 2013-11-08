@@ -32,6 +32,13 @@ void outw(unsigned short value, unsigned short port)
     Logging::panic("%s could not send to ioport %x\n",  __PRETTY_FUNCTION__, port);
 }
 
+void outl(unsigned value, unsigned short port)
+{
+  MessageHwIOOut msg(MessageIOOut::TYPE_OUTL, port, value);
+  if (!_bus_hwioout.send(msg, true))
+    Logging::panic("%s could not send to ioport %x\n",  __PRETTY_FUNCTION__, port);
+}
+
 void outsw(void *ptr, unsigned count, unsigned short port)
 {
   MessageHwIOOut msg(MessageIOOut::TYPE_OUTW, port, count, ptr);
