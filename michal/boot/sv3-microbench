@@ -1,0 +1,7 @@
+#!/usr/bin/env novaboot
+# -*-sh-*-
+QEMU_FLAGS=-machine q35 -netdev type=tap,id=guest,vhost=on,fd=3 -device virtio-net-pci,netdev=guest 3<>/dev/tap3
+HYPERVISOR_PARAMS=serial
+bin/apps/sigma0.nul S0_DEFAULT \
+    hostserial \
+    hostvirtionet:0
